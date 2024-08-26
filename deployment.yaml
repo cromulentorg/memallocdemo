@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: memallocdemo
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memallocdemo-deployment
+  namespace: memallocdemo
+  labels:
+    app: memallocdemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memallocdemo
+  template:
+    metadata:
+      labels:
+        app: memallocdemo
+    spec:
+      containers:
+      - name: memallocdemo
+        image: <SOME CONTAINER REPO>/memallocdemo:0.2
+        env:
+        - name: ALLOCATE_MB
+          value: "10000"
+        - name: HOLD_ALLOC_TIME
+          value: "10s"
+        - name: HOLD_FREE_TIME
+          value: "10s"
+        - name: BIND_ADDRESS
+          value: 0.0.0.0
+        - name: BUFFER_SIZE
+          value: "24"
+        - name: LOG_LEVEL
+          value: debug
+        ports:
+        - containerPort: 8484
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            cpu: 500m
+            memory: 256Mi
