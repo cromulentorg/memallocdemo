@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: memallocdemo
-        image: registry.gitlab.com/cromulentbanana/myreg:latest
+        image: docker.io/tomrijntjes/memallocdemo:latest
         env:
         - name: LOG_LEVEL
           value: debug
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
       - name: memallocdemo
-        image: registry.gitlab.com/cromulentbanana/myreg:latest
+        image: docker.io/tomrijntjes/memallocdemo:latest
         env:
         ports:
         - containerPort: 8484
@@ -86,7 +86,7 @@ spec:
     spec:
       containers:
       - name: memallocdemo
-        image: registry.gitlab.com/cromulentbanana/myreg:latest
+        image: docker.io/tomrijntjes/memallocdemo:latest
         env:
         - name: LOG_LEVEL
           value: debug
