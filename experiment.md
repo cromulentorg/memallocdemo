@@ -51,4 +51,4 @@ curl -X POST localhost:8081/allocate/3000
 {"message":"Allocating 3000MB."}
 ```
 
-This works, confirming that the scheduler frees up the memory to the memory pool.
+This works, confirming that the scheduler frees up the memory to the memory pool once an application stops using it.
