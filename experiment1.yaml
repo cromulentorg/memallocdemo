@@ -22,14 +22,8 @@ spec:
     spec:
       containers:
       - name: memallocdemo
-        image: registry.gitlab.com/cromulentbanana/myreg:latest
+        image: docker.io/tomrijntjes/memallocdemo:latest
         env:
-        - name: ALLOCATE_MB
-          value: "10000"
-        - name: HOLD_ALLOC_TIME
-          value: "10s"
-        - name: HOLD_FREE_TIME
-          value: "10s"
         - name: BIND_ADDRESS
           value: 0.0.0.0
         - name: BUFFER_SIZE
@@ -37,7 +31,7 @@ spec:
         - name: LOG_LEVEL
           value: debug
         ports:
-        - containerPort: 8484
+        - containerPort: 8080
           name: api
           protocol: TCP
         - containerPort: 9090
@@ -45,10 +39,10 @@ spec:
           protocol: TCP
         resources:
           limits:
-            memory: 10Gi
+            memory: 3Gi
           requests:
             cpu: 1
-            memory: 10Gi
+            memory: 1Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -69,14 +63,8 @@ spec:
     spec:
       containers:
       - name: memallocdemo
-        image: registry.gitlab.com/cromulentbanana/myreg:latest
+        image: docker.io/tomrijntjes/memallocdemo:latest
         env:
-        - name: ALLOCATE_MB
-          value: "10000"
-        - name: HOLD_ALLOC_TIME
-          value: "10s"
-        - name: HOLD_FREE_TIME
-          value: "10s"
         - name: BIND_ADDRESS
           value: 0.0.0.0
         - name: BUFFER_SIZE
@@ -84,7 +72,7 @@ spec:
         - name: LOG_LEVEL
           value: debug
         ports:
-        - containerPort: 8484
+        - containerPort: 8080
           name: api
           protocol: TCP
         - containerPort: 9090
@@ -93,7 +81,7 @@ spec:
         resources:
           requests:
             cpu: 1
-            memory: 10Gi
+            memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -107,7 +95,7 @@ spec:
   - name: api
     port: 80
     protocol: TCP
-    targetPort: 8484
+    targetPort: 8080
   selector:
     app: memallocdemo-1
   type: ClusterIP
@@ -124,7 +112,7 @@ spec:
   - name: api
     port: 80
     protocol: TCP
-    targetPort: 8484
+    targetPort: 8080
   selector:
     app: memallocdemo-2
   type: ClusterIP
